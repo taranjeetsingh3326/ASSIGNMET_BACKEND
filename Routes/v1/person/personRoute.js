@@ -7,7 +7,7 @@ let Joi = require('joi');
 module.exports = [
     {
         method: 'GET',
-        path: '/persons',
+        path: '/person',
         handler: PersonController.getPersons,
         options: {
             auth : false,
@@ -18,7 +18,7 @@ module.exports = [
     },
     {
         method: 'GET',
-        path: '/persons/{id}',
+        path: '/person/{id}',
         handler: PersonController.getPersonById,
         options: {
             auth : false,
@@ -29,7 +29,7 @@ module.exports = [
     },
     {
         method: 'POST',
-        path: '/persons',
+        path: '/person',
         handler: PersonController.addPerson,
         options: {
             auth : false,
@@ -38,7 +38,7 @@ module.exports = [
                     username: Joi.string().required(),
                     email:Joi.string().email().required(),
                     dob: Joi.string(),
-                    mobileNo: Joi.number(),
+                    mobileNo: Joi.string(),
                     country: Joi.string()
                 }
             },
@@ -49,7 +49,7 @@ module.exports = [
     },
     {
         method: 'PUT',
-        path: '/persons/{id}',
+        path: '/person/{id}',
         handler: PersonController.updatePersonById,
         options: {
             auth : false,
@@ -58,7 +58,7 @@ module.exports = [
                     username: Joi.string().required(),
                     email:Joi.string().email().required(),
                     dob: Joi.string(),
-                    mobileNo: Joi.number(),
+                    mobileNo: Joi.string(),
                     country: Joi.string()
                 }
             },

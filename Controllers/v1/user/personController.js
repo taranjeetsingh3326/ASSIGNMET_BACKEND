@@ -6,7 +6,6 @@ const Boom = require('boom');
 
 
 module.exports.getPersons = async (request, h)=>{
-    let payload = request.query;
     let response = await Person.find().lean();
     response = response.map( res =>{
         res.id = res._id;
@@ -40,7 +39,11 @@ module.exports.updatePersonById = async (request, h)=>{
 
 module.exports.addPerson = async (request, h)=>{
     let payload = request.payload;
-    let response = new Person(payload);;
+    let isExist = await Person.findOne({email: payload.email.trim()});
+    if(isExist){
+        throw new Error("This Email id already exist");
+    }
+    let response = await new Person(payload);
     await response.save();
     return { statusCode : 200, message : 'Created Successfully', data : [] };
     
